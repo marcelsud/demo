@@ -7,6 +7,6 @@ pipeline:
     force_tag: true
     secrets: [ docker_username, docker_password ]
   deploy:
-    image: rancher/cli
+    image: rancher/cli:v2.0.0
     commands:
-      - rancher kubectl config view
+      - kubectl config view
