@@ -10,5 +10,5 @@ pipeline:
     image: rancher/cli:v2.0.0
     commands:
       - kubectl config view --kubeconfig=/config/kubeconfig
-  volumes:
-    - /root/config/kubeconfig:/config/kubeconfig
+    volumes:
+      - /root/config/kubeconfig:/config/kubeconfig
