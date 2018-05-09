@@ -6,3 +6,7 @@ pipeline:
       - ${DRONE_COMMIT_BRANCH}
     force_tag: true
     secrets: [ docker_username, docker_password ]
+  deploy:
+    image: rancher/cli
+    commands:
+      - rancher kubectl config view
