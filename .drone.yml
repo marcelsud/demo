@@ -7,8 +7,8 @@ pipeline:
     force_tag: true
     secrets: [ docker_username, docker_password ]
   deploy:
-    image: rancher/cli:v2.0.0
+    image: marcelsud/kubectl
     commands:
-      - kubectl config view --kubeconfig=/config/kubeconfig
+      - kubectl set image deployment.apps/demo demo=marcelsud/demo:${DRONE_COMMIT_BRANCH} --namespace=default --kubeconfig=/config/kubeconfig
     volumes:
       - /root/config/kubeconfig:/config/kubeconfig
