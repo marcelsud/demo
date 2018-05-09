@@ -1,0 +1,8 @@
+pipeline:
+  publish-push:
+    image: plugins/docker
+    repo: marcelsud/demo
+    tags:
+      - ${DRONE_COMMIT_BRANCH}
+    force_tag: true
+    secrets: [ docker_username, docker_password ]
