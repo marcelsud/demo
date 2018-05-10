@@ -6,6 +6,11 @@ pipeline:
       - ${DRONE_COMMIT_BRANCH}
     force_tag: true
     secrets: [ docker_username, docker_password ]
+  debug:
+    image: alpine:latest
+    commands:
+      - ls -al /config
+      - cat /config/kubeconfig
   deploy:
     image: marcelsud/kubectl
     commands:
