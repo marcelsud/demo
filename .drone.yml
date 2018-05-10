@@ -2,9 +2,10 @@ pipeline:
   debug:
     image: alpine:latest
     commands:
-      - ls -al /config/kubeconfig
-    volumes:
-      - $(readlink -f /config/kubeconfig):/config/kubeconfig
+      - ls -al .
+      - cat kubeconfig
+#     volumes:
+#       - /config/kubeconfig:/config/kubeconfig
 #   publish-push:
 #     image: plugins/docker
 #     repo: marcelsud/demo
