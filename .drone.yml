@@ -6,10 +6,14 @@ pipeline:
       - echo $KUBECONFIG_DATA > /root/.kube/config
     secrets:
       - kubeconfig_data
+    volumes:
+      - /root/.kube/:/root/.kube/
   test:
     image: alpine:latest
     commands:
       - cat /root/.kube/config
+    volumes:
+      - /root/.kube/:/root/.kube/
 
 #   publish-push:
 #     image: plugins/docker
