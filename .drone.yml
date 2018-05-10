@@ -2,8 +2,8 @@ pipeline:
   deploy:
     image: marcelsud/kubectl
     commands:
-      - echo $KUBECONFIG_DATA > /root/.kube/config
-      - kubectl get pods --namespace=default --kubeconfig=/root/.kube/config
+      - echo $KUBECONFIG_DATA > /tmp/kubeconfig
+      - kubectl get pods --namespace=default --kubeconfig=/tmp/kubeconfig
     secrets:
       - kubeconfig_data
 
