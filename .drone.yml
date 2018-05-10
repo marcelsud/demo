@@ -1,12 +1,16 @@
 pipeline:
-  debug:
+  setup:
     image: alpine:latest
     commands:
-      - echo $KUBECONFIG_DATA
+      - mkdir -p $HOME/.kube
+      - echo $KUBECONFIG_DATA > /root/.kube/config
     secrets:
       - kubeconfig_data
-#     volumes:
-#       - /config/kubeconfig:/config/kubeconfig
+  test:
+    image: alpine:latest
+    commands:
+      - cat /root/.kube/config
+
 #   publish-push:
 #     image: plugins/docker
 #     repo: marcelsud/demo
