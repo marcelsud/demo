@@ -4,7 +4,7 @@ pipeline:
     commands:
       - ls -al /config/kubeconfig
     volumes:
-      - /config/kubeconfig:/config/kubeconfig
+      - $(readlink -f /config/kubeconfig):/config/kubeconfig
 #   publish-push:
 #     image: plugins/docker
 #     repo: marcelsud/demo
