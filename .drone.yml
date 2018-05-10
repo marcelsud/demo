@@ -1,6 +1,7 @@
 pipeline:
   deploy:
     image: marcelsud/helm
+    pull: true
     commands:
       - echo $KUBECONFIG_DATA > /tmp/kubeconfig
       - export KUBECONFIG=/tmp/kubeconfig
