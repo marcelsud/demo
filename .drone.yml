@@ -4,7 +4,6 @@ pipeline:
     commands:
       - echo $KUBECONFIG_DATA > /tmp/kubeconfig
       - export KUBECONFIG=/tmp/kubeconfig
-      - helm list
       - if [[ $(helm status demo -o json | jq .info.status.code) == 1 ]]; then helm upgrade demo demo-chart; else helm install --name=demo demo-chart; fi
     secrets:
       - kubeconfig_data
