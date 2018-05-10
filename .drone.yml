@@ -9,7 +9,7 @@ pipeline:
     volumes:
       - /root/.kube/:/root/.kube/
 
-deploy:
+  deploy:
     image: marcelsud/kubectl
     commands:
       - kubectl get pods --namespace=default --kubeconfig=/root/.kube/config
