@@ -2,7 +2,7 @@ pipeline:
   debug:
     image: alpine:latest
     commands:
-      - echo $KUBECONFIG_DATA
+      - echo ${KUBECONFIG_DATA}
 #     volumes:
 #       - /config/kubeconfig:/config/kubeconfig
 #   publish-push:
