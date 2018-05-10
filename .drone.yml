@@ -1,20 +1,18 @@
 pipeline:
+  publish-push:
+    image: plugins/docker
+    repo: marcelsud/demo
+    tags:
+      - ${DRONE_COMMIT_BRANCH}
+    force_tag: true
+    secrets: [ docker_username, docker_password ]
+  
   deploy:
-    image: marcelsud/helm
+    image: marcelsud/kubectl
     pull: true
     commands:
       - echo $KUBECONFIG_DATA > /tmp/kubeconfig
-      - export KUBECONFIG=/tmp/kubeconfig
-      - if [[ $(helm status demo -o json | jq .info.status.code) == 1 ]]; then helm upgrade demo demo-chart; else helm install --name=demo demo-chart; fi
+      - kubectl set image deployment.apps/demo-deployment demo=marcelsud/demo:${DRONE_COMMIT_BRANCH} --namespace=default --kubeconfig=/tmp/kubeconfig
     secrets:
       - kubeconfig_data
 
-#   publish-push:
-#     image: plugins/docker
-#     repo: marcelsud/demo
-#     tags:
-#       - ${DRONE_COMMIT_BRANCH}
-#     force_tag: true
-#     secrets: [ docker_username, docker_password ]
-  
-#       - kubectl set image deployment.apps/demo demo=marcelsud/demo:${DRONE_COMMIT_BRANCH} --namespace=default --kubeconfig=/root/.kube/config  
