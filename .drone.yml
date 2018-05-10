@@ -8,10 +8,11 @@ pipeline:
       - kubeconfig_data
     volumes:
       - /root/.kube/:/root/.kube/
-  test:
-    image: alpine:latest
+
+deploy:
+    image: marcelsud/kubectl
     commands:
-      - cat /root/.kube/config
+      - kubectl get pods --namespace=default --kubeconfig=/root/.kube/config
     volumes:
       - /root/.kube/:/root/.kube/
 
@@ -23,9 +24,4 @@ pipeline:
 #     force_tag: true
 #     secrets: [ docker_username, docker_password ]
   
-#   deploy:
-#     image: marcelsud/kubectl
-#     commands:
-#       - kubectl set image deployment.apps/demo demo=marcelsud/demo:${DRONE_COMMIT_BRANCH} --namespace=default --kubeconfig=/config/kubeconfig
-#     volumes:
-#       - /config/kubeconfig:/config/kubeconfig
+#       - kubectl set image deployment.apps/demo demo=marcelsud/demo:${DRONE_COMMIT_BRANCH} --namespace=default --kubeconfig=/root/.kube/config  
