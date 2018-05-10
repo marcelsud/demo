@@ -1,20 +1,11 @@
 pipeline:
-  setup:
-    image: alpine:latest
-    commands:
-      - mkdir -p $HOME/.kube
-      - echo $KUBECONFIG_DATA > /root/.kube/config
-    secrets:
-      - kubeconfig_data
-    volumes:
-      - /root/.kube/:/root/.kube/
-
   deploy:
     image: marcelsud/kubectl
     commands:
+      - echo $KUBECONFIG_DATA > /root/.kube/config
       - kubectl get pods --namespace=default --kubeconfig=/root/.kube/config
-    volumes:
-      - /root/.kube/:/root/.kube/
+    secrets:
+      - kubeconfig_data
 
 #   publish-push:
 #     image: plugins/docker
