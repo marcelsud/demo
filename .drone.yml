@@ -10,5 +10,3 @@ pipeline:
     image: marcelsud/kubectl
     commands:
       - kubectl set image deployment.apps/demo demo=marcelsud/demo:${DRONE_COMMIT_BRANCH} --namespace=default --kubeconfig=/config/kubeconfig
-    volumes:
-      - /root/config/kubeconfig:/config/kubeconfig
