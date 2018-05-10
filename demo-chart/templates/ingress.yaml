@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/ingressState: '{"ZGVtby1pbmdyZXNzL2RlZmF1bHQvZGVtby5tYXJjZWxzdWQuY29tLy8yMzY4":"deployment:default:demo-deployment"}'
+    field.cattle.io/publicEndpoints: '[{"addresses":[],"port":80,"protocol":"HTTP","serviceName":"default:demo-ingress","ingressName":"default:demo-ingress","hostname":"demo.marcelsud.com","allNodes":true},{"addresses":[],"port":443,"protocol":"HTTPS","serviceName":"default:demo-ingress","ingressName":"default:demo-ingress","hostname":"demo.marcelsud.com","allNodes":true}]'
+  name: demo-ingress
+  namespace: default
+spec:
+  rules:
+  - host: demo.marcelsud.com
+    http:
+      paths:
+      - backend:
+          serviceName: demo-ingress
+          servicePort: 2368
+status:
+  loadBalancer: {}
+

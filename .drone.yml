@@ -1,9 +1,10 @@
 pipeline:
   deploy:
-    image: marcelsud/kubectl
+    image: marcelsud/helm
     commands:
-      - echo $KUBECONFIG_DATA > /tmp/kubeconfig
-      - kubectl get pods --namespace=default --kubeconfig=/tmp/kubeconfig
+      - echo $KUBECONFIG_DATA > /root/.kube/config
+      - helm list
+      - if [[ $(helm status demo -o json | jq .info.status.code) == 1 ]]; then helm upgrade demo demo-chart; else helm install --name=demo demo-chart; fi
     secrets:
       - kubeconfig_data
 
