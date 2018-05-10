@@ -2,7 +2,7 @@ pipeline:
   deploy:
     image: marcelsud/helm
     commands:
-      - echo $KUBECONFIG_DATA > /root/.kube/config
+      - echo $KUBECONFIG_DATA > $HOME/.kube/config
       - helm list
       - if [[ $(helm status demo -o json | jq .info.status.code) == 1 ]]; then helm upgrade demo demo-chart; else helm install --name=demo demo-chart; fi
     secrets:
