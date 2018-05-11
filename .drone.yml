@@ -1,12 +1,25 @@
 pipeline:
-  publish-push:
+  publish-push-staging:
     image: plugins/docker
     repo: marcelsud/demo
     tags:
       - ${DRONE_COMMIT_BRANCH}
     force_tag: true
     secrets: [ docker_username, docker_password ]
+    when:
+      branch:
+        exclude: [ master ]
   
+  publish-push-production:
+    image: plugins/docker
+    repo: marcelsud/demo
+    tags:
+      - ${DRONE_COMMIT_BRANCH}
+    force_tag: true
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: [ master ]
+
   deploy:
     image: marcelsud/kubectl
     pull: true
